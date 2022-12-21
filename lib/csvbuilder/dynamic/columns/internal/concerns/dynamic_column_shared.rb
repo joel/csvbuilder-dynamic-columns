@@ -11,7 +11,7 @@ module Csvbuilder
     # row_model_class
     #
     def column_index
-      @dynamic_column_index ||= row_model_class.dynamic_column_index(column_name)
+      @column_index ||= row_model_class.dynamic_column_index(column_name)
     end
 
     def options

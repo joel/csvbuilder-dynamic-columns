@@ -15,15 +15,14 @@ module Csvbuilder
         end
       end
 
-      let(:instance) { row_model_class.new(source_row, source_headers: headers) }
-      let(:headers) { dynamic_column_source_headers }
+      let(:instance)   { row_model_class.new(source_row, source_headers: headers) }
+      let(:headers)    { dynamic_column_source_headers }
       let(:source_row) { dynamic_column_source_cells }
 
       shared_context "standard columns defined" do
         let(:row_model_class) { DynamicColumnImportModel }
         let(:headers)    { %w[first_name last_name] + dynamic_column_source_headers }
         let(:source_row) { %w[Mario Italian] + dynamic_column_source_cells }
-        let(:original_attributes) {}
       end
 
       describe "instance" do
@@ -77,7 +76,7 @@ module Csvbuilder
               expect(source_headers).to eql dynamic_column_source_headers
             end
 
-            context "for no dynamic classes" do
+            context "with no dynamic classes" do
               let(:row_model_class) { BasicImportModel }
 
               it "returns empty array" do
@@ -95,7 +94,7 @@ module Csvbuilder
               expect(source_cells).to eql dynamic_column_source_cells
             end
 
-            context "for no dynamic classes" do
+            context "with no dynamic classes" do
               let(:row_model_class) { BasicImportModel }
 
               it "returns empty array" do
