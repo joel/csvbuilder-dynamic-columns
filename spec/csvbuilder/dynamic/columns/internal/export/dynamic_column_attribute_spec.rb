@@ -1,4 +1,6 @@
-require 'spec_helper'
+# frozen_string_literal: true
+
+require "spec_helper"
 
 RSpec.describe Csvbuilder::Export::DynamicColumnAttribute do
   describe "instance" do
@@ -46,20 +48,23 @@ RSpec.describe Csvbuilder::Export::DynamicColumnAttribute do
       context "with process method defined" do
         before do
           row_model_class.class_eval do
-            def skill(header_model);  "__#{header_model}" end
+            def skill(header_model)
+              "__#{header_model}"
+            end
           end
         end
 
         it "return an array of the result of the process method" do
-          expect(subject).to eql ["__Organized", "__Clean", "__Punctual", "__Strong", "__Crazy", "__Flexible"]
+          expect(subject).to eql %w[__Organized __Clean __Punctual __Strong __Crazy __Flexible]
         end
       end
     end
 
     describe "class" do
       describe "::define_process_cell" do
-        let(:klass) { Class.new { include Csvbuilder::Proxy } }
         subject { described_class.define_process_cell(klass, :somethings) }
+
+        let(:klass) { Class.new { include Csvbuilder::Proxy } }
 
         it "adds the process method to the class" do
           subject

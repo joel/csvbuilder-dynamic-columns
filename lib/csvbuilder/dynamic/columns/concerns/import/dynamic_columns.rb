@@ -1,5 +1,7 @@
-require 'csvbuilder/dynamic/columns/concerns/dynamic_columns_base'
-require 'csvbuilder/dynamic/columns/internal/import/dynamic_column_attribute'
+# frozen_string_literal: true
+
+require "csvbuilder/dynamic/columns/concerns/dynamic_columns_base"
+require "csvbuilder/dynamic/columns/internal/import/dynamic_column_attribute"
 
 module Csvbuilder
   module Import
@@ -13,7 +15,8 @@ module Csvbuilder
 
       def dynamic_column_attribute_objects
         @dynamic_column_attribute_objects ||= array_to_block_hash(self.class.dynamic_column_names) do |column_name|
-          self.class.dynamic_attribute_class.new(column_name, dynamic_column_source_headers, dynamic_column_source_cells, self)
+          self.class.dynamic_attribute_class.new(column_name, dynamic_column_source_headers,
+                                                 dynamic_column_source_cells, self)
         end
       end
 
@@ -34,11 +37,11 @@ module Csvbuilder
 
       class_methods do
         def dynamic_column_source_headers(source_headers)
-          dynamic_columns? ? source_headers[columns.size..-1] : []
+          dynamic_columns? ? source_headers[columns.size..] : []
         end
 
         def dynamic_column_source_cells(source_row)
-          dynamic_columns? ? source_row[columns.size..-1] : []
+          dynamic_columns? ? source_row[columns.size..] : []
         end
 
         def dynamic_attribute_class

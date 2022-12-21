@@ -1,4 +1,6 @@
-require 'spec_helper'
+# frozen_string_literal: true
+
+require "spec_helper"
 
 RSpec.describe Csvbuilder::Model::DynamicColumns do
   let(:skills) { %w[skill1 skill2] }
@@ -39,12 +41,12 @@ RSpec.describe Csvbuilder::Model::DynamicColumns do
       subject { row_model_class.dynamic_column_index(:skills) }
 
       it "returns the index after the columns" do
-        expect(subject).to eql 0
+        expect(subject).to be 0
       end
 
       with_context "standard columns defined" do
         it "returns the index after the columns" do
-          expect(subject).to eql 2
+          expect(subject).to be 2
         end
       end
     end
@@ -61,8 +63,8 @@ RSpec.describe Csvbuilder::Model::DynamicColumns do
 
     describe "::dynamic_columns?" do
       it "returns true if class is a dynamic_column class" do
-        expect(row_model_class.dynamic_columns?).to eql(true)
-        expect(BasicRowModel.dynamic_columns?).to eql(false)
+        expect(row_model_class.dynamic_columns?).to be(true)
+        expect(BasicRowModel.dynamic_columns?).to be(false)
       end
     end
 
@@ -75,13 +77,14 @@ RSpec.describe Csvbuilder::Model::DynamicColumns do
 
       with_context "standard columns defined" do
         it "returns an array with header column names + header_models" do
-          expect(subject).to eql [:first_name, :last_name] + skills
+          expect(subject).to eql %i[first_name last_name] + skills
         end
       end
     end
 
     describe "::dynamic_column_headers" do
       subject { row_model_class.dynamic_column_headers(context) }
+
       let(:context) { { skills: skills } }
 
       with_this_then_context "standard columns defined" do

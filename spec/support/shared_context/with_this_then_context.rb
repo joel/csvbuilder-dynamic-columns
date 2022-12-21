@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module WithThisThenContext
   extend ActiveSupport::Concern
   include WithContext
@@ -8,8 +10,8 @@ module WithThisThenContext
     # <block>
     # with_context "context_name1", "context_name1"
     def with_this_then_context(*context_names, &block)
-      instance_exec &block
-      with_context *context_names, &block
+      instance_exec(&block)
+      with_context(*context_names, &block)
     end
   end
 end

@@ -1,4 +1,6 @@
-require 'csvbuilder/dynamic/columns/internal/dynamic_column_attribute_base'
+# frozen_string_literal: true
+
+require "csvbuilder/dynamic/columns/internal/dynamic_column_attribute_base"
 
 module Csvbuilder
   module Import
@@ -25,7 +27,7 @@ module Csvbuilder
 
       class << self
         def define_process_cell(row_model_class, column_name)
-          super { |formatted_cell, source_headers| formatted_cell }
+          super { |formatted_cell, _source_headers| formatted_cell }
         end
       end
     end

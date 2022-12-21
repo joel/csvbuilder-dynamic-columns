@@ -1,4 +1,6 @@
-require 'spec_helper'
+# frozen_string_literal: true
+
+require "spec_helper"
 
 header_models = Skill.all
 RSpec.describe Csvbuilder::DynamicColumnsBase do
@@ -57,12 +59,12 @@ RSpec.describe Csvbuilder::DynamicColumnsBase do
     describe "#original_attributes" do
       subject { instance.original_attributes }
 
-      it "should have dynamic columns" do
+      it "has dynamic columns" do
         expect(subject).to eql(skills: header_models)
       end
 
       with_context "standard columns defined" do
-        it "should have standard and dynamic columns" do
+        it "has standard and dynamic columns" do
           expect(subject).to eql(first_name: "Mario", last_name: "Italian", skills: header_models)
         end
       end
@@ -70,6 +72,7 @@ RSpec.describe Csvbuilder::DynamicColumnsBase do
 
     describe "#original_attribute" do
       subject { instance.original_attribute(:skills) }
+
       it_behaves_like "attribute_object_value", :original_attribute, :value, skills: header_models
     end
 
@@ -77,20 +80,26 @@ RSpec.describe Csvbuilder::DynamicColumnsBase do
       subject { instance.formatted_attributes }
 
       before do
-        row_model_class.class_eval { def self.format_cell(*args); args.join("__") end }
+        row_model_class.class_eval do
+          def self.format_cell(*args)
+            args.join("__")
+          end
+        end
       end
 
       it "returns all attributes of dynamic columns" do
-        expect(subject).to eql(skills: ["Organized__skills__#<OpenStruct>", "Clean__skills__#<OpenStruct>", "Punctual__skills__#<OpenStruct>", "Strong__skills__#<OpenStruct>", "Crazy__skills__#<OpenStruct>", "Flexible__skills__#<OpenStruct>"])
+        expect(subject).to eql(skills: ["Organized__skills__#<OpenStruct>", "Clean__skills__#<OpenStruct>",
+                                        "Punctual__skills__#<OpenStruct>", "Strong__skills__#<OpenStruct>", "Crazy__skills__#<OpenStruct>", "Flexible__skills__#<OpenStruct>"])
       end
 
       with_context "standard columns defined" do
         it "returns all attributes including the dynamic columns" do
           expect(subject).to eql(
-                               first_name: "Mario_source__first_name__#<OpenStruct>",
-                               last_name: "Italian_source__last_name__#<OpenStruct>",
-                               skills: ["Organized__skills__#<OpenStruct>", "Clean__skills__#<OpenStruct>", "Punctual__skills__#<OpenStruct>", "Strong__skills__#<OpenStruct>", "Crazy__skills__#<OpenStruct>", "Flexible__skills__#<OpenStruct>"]
-                             )
+            first_name: "Mario_source__first_name__#<OpenStruct>",
+            last_name: "Italian_source__last_name__#<OpenStruct>",
+            skills: ["Organized__skills__#<OpenStruct>", "Clean__skills__#<OpenStruct>",
+                     "Punctual__skills__#<OpenStruct>", "Strong__skills__#<OpenStruct>", "Crazy__skills__#<OpenStruct>", "Flexible__skills__#<OpenStruct>"]
+          )
         end
       end
     end

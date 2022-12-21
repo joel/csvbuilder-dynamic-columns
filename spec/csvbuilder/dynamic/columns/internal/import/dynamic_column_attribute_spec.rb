@@ -1,4 +1,6 @@
-require 'spec_helper'
+# frozen_string_literal: true
+
+require "spec_helper"
 
 RSpec.describe Csvbuilder::Import::DynamicColumnAttribute do
   describe "instance" do
@@ -30,12 +32,15 @@ RSpec.describe Csvbuilder::Import::DynamicColumnAttribute do
       context "with process method defined" do
         before do
           row_model_class.class_eval do
-            def skill(formatted_cell, source_headers);  "#{formatted_cell}__#{source_headers}" end
+            def skill(formatted_cell, source_headers)
+              "#{formatted_cell}__#{source_headers}"
+            end
           end
         end
 
         it "return an array of the result of the process method" do
-          expect(subject).to eql ["Yes__Organized", "Yes__Clean", "No__Punctual", "Yes__Strong", "Yes__Crazy", "No__Flexible"]
+          expect(subject).to eql %w[Yes__Organized Yes__Clean No__Punctual Yes__Strong Yes__Crazy
+                                    No__Flexible]
         end
       end
     end
@@ -56,19 +61,21 @@ RSpec.describe Csvbuilder::Import::DynamicColumnAttribute do
 
       before do
         row_model_class.class_eval do
-          def self.format_dynamic_column_header(*args); args.join("__") end
+          def self.format_dynamic_column_header(*args)
+            args.join("__")
+          end
         end
       end
 
       it "returns an array of the formatted_cells" do
         expect(subject).to eql [
-                                 "Organized__skills__#<OpenStruct>",
-                                 "Clean__skills__#<OpenStruct>",
-                                 "Punctual__skills__#<OpenStruct>",
-                                 "Strong__skills__#<OpenStruct>",
-                                 "Crazy__skills__#<OpenStruct>",
-                                 "Flexible__skills__#<OpenStruct>"
-                               ]
+          "Organized__skills__#<OpenStruct>",
+          "Clean__skills__#<OpenStruct>",
+          "Punctual__skills__#<OpenStruct>",
+          "Strong__skills__#<OpenStruct>",
+          "Crazy__skills__#<OpenStruct>",
+          "Flexible__skills__#<OpenStruct>"
+        ]
       end
 
       context "with regular column defined" do
@@ -81,7 +88,7 @@ RSpec.describe Csvbuilder::Import::DynamicColumnAttribute do
           end
         end
 
-        it "it bumps the index up for the dynamic_column_index" do
+        it "bumps the index up for the dynamic_column_index" do
           expect(subject.first).to eql "Organized__skills__#<OpenStruct>"
         end
       end
@@ -90,8 +97,9 @@ RSpec.describe Csvbuilder::Import::DynamicColumnAttribute do
 
   describe "class" do
     describe "::define_process_cell" do
-      let(:klass) { Class.new { include Csvbuilder::Proxy } }
       subject { described_class.define_process_cell(klass, :somethings) }
+
+      let(:klass) { Class.new { include Csvbuilder::Proxy } }
 
       it "adds the process method to the class" do
         subject

@@ -1,4 +1,6 @@
-require 'csvbuilder/dynamic/columns/internal/dynamic_column_attribute_base'
+# frozen_string_literal: true
+
+require "csvbuilder/dynamic/columns/internal/dynamic_column_attribute_base"
 
 module Csvbuilder
   module Export

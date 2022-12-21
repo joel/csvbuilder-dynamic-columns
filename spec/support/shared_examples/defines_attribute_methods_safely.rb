@@ -1,4 +1,8 @@
-shared_examples "defines_attributes_methods_safely" do |attributes, mod=described_class|
+# frozen_string_literal: true
+
+shared_examples "defines_attributes_methods_safely" do |attributes, mod = described_class|
+  subject { instance.attributes }
+
   let(:row_model_class) do
     Class.new do
       include Csvbuilder::Model
@@ -9,8 +13,6 @@ shared_examples "defines_attributes_methods_safely" do |attributes, mod=describe
       column :string2
     end
   end
-
-  subject { instance.attributes }
 
   it "#attributes works" do
     expect(subject).to eql attributes

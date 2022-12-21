@@ -1,8 +1,10 @@
-require 'spec_helper'
+# frozen_string_literal: true
+
+require "spec_helper"
 
 RSpec.describe Csvbuilder::Import do
-    let(:klass) do
-     Class.new do
+  let(:klass) do
+    Class.new do
       include Csvbuilder::Import
     end
   end

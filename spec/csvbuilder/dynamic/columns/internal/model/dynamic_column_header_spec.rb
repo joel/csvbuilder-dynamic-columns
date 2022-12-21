@@ -1,10 +1,14 @@
-require 'spec_helper'
+# frozen_string_literal: true
+
+require "spec_helper"
 
 RSpec.describe Csvbuilder::Model::DynamicColumnHeader do
   let(:instance) { described_class.new(:skills, row_model_class, skills: "context") }
   let(:row_model_class) do
     Class.new(DynamicColumnModel) do
-      def self.format_dynamic_column_header(*args); args.join("__") end
+      def self.format_dynamic_column_header(*args)
+        args.join("__")
+      end
     end
   end
 
@@ -21,7 +25,7 @@ RSpec.describe Csvbuilder::Model::DynamicColumnHeader do
           include Csvbuilder::Model
           column :first_name
           column :last_name
-          dynamic_column :skills, header: -> (header_model) { "#{header_model}_changed" }
+          dynamic_column :skills, header: ->(header_model) { "#{header_model}_changed" }
         end
       end
 

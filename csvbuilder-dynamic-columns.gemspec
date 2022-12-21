@@ -33,8 +33,8 @@ Gem::Specification.new do |spec|
   # spec.add_dependency "activemodel", ">= 5.2", "< 8"
   spec.add_dependency "activesupport", ">= 5.2", "< 8"
   spec.add_dependency "csvbuilder-core"
-  spec.add_dependency "csvbuilder-importer"
   spec.add_dependency "csvbuilder-exporter"
+  spec.add_dependency "csvbuilder-importer"
 
   spec.metadata["rubygems_mfa_required"] = "true"
 end

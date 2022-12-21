@@ -1,4 +1,6 @@
-require 'spec_helper'
+# frozen_string_literal: true
+
+require "spec_helper"
 
 RSpec.describe Csvbuilder::DynamicColumnAttributeBase do
   describe "instance" do
@@ -13,10 +15,14 @@ RSpec.describe Csvbuilder::DynamicColumnAttributeBase do
 
     describe "#value" do
       subject { instance.value }
-      let(:unformatted_value) { ["Yes", "Yes", "No", "Yes", "Yes", "No"] }
+
+      let(:unformatted_value) { %w[Yes Yes No Yes Yes No] }
+
       before do
         row_model_class.class_eval do
-          def self.format_dynamic_column_cells(*args); args end
+          def self.format_dynamic_column_cells(*args)
+            args
+          end
         end
       end
 
@@ -32,7 +38,7 @@ RSpec.describe Csvbuilder::DynamicColumnAttributeBase do
 
       it "calls the class method" do
         expect(described_class).to receive(:process_cell_method_name).with(:skills).and_call_original
-        expect(subject).to eql :skill
+        expect(subject).to be :skill
       end
     end
 
@@ -41,7 +47,9 @@ RSpec.describe Csvbuilder::DynamicColumnAttributeBase do
 
       before do
         row_model_class.class_eval do
-          def skill(formatted_cell, source_headers);  "#{formatted_cell}**#{source_headers}" end
+          def skill(formatted_cell, source_headers)
+            "#{formatted_cell}**#{source_headers}"
+          end
         end
       end
 
@@ -56,7 +64,7 @@ RSpec.describe Csvbuilder::DynamicColumnAttributeBase do
       subject { described_class.process_cell_method_name(:somethings) }
 
       it "returns a singularized name" do
-        expect(subject).to eql :something
+        expect(subject).to be :something
       end
     end
   end

@@ -1,6 +1,8 @@
-require 'csvbuilder/dynamic/columns/concerns/dynamic_columns_base'
-require 'csvbuilder/exporter/concerns/export/attributes'
-require 'csvbuilder/dynamic/columns/internal/export/dynamic_column_attribute'
+# frozen_string_literal: true
+
+require "csvbuilder/dynamic/columns/concerns/dynamic_columns_base"
+require "csvbuilder/exporter/concerns/export/attributes"
+require "csvbuilder/dynamic/columns/internal/export/dynamic_column_attribute"
 
 module Csvbuilder
   module Export

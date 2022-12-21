@@ -1,4 +1,6 @@
-require 'csvbuilder/dynamic/columns/internal/model/dynamic_column_header'
+# frozen_string_literal: true
+
+require "csvbuilder/dynamic/columns/internal/model/dynamic_column_header"
 # require 'csvbuilder/core/concerns/check_options'
 
 module Csvbuilder
@@ -28,11 +30,11 @@ module Csvbuilder
         end
 
         # See Model::Columns::headers
-        def headers(context={})
+        def headers(context = {})
           super + dynamic_column_headers(context)
         end
 
-        def dynamic_column_headers(context={})
+        def dynamic_column_headers(context = {})
           dynamic_column_names.map { |column_name| DynamicColumnHeader.new(column_name, self, context).value }.flatten
         end
 
@@ -40,19 +42,19 @@ module Csvbuilder
         #
         # @param cells [Array] Array of values
         # @param column_name [Symbol] Dynamic column name
-        def format_dynamic_column_cells(cells, column_name, context)
+        def format_dynamic_column_cells(cells, _column_name, _context)
           cells
         end
 
         # Safe to override
         #
         # @return [String] formatted header
-        def format_dynamic_column_header(header_model, column_name, context)
+        def format_dynamic_column_header(header_model, _column_name, _context)
           header_model
         end
 
         def dynamic_columns
-          self._dynamic_columns || {}
+          _dynamic_columns || {}
         end
 
         protected
@@ -61,7 +63,7 @@ module Csvbuilder
         #
         # @param column_name [Symbol] column_name
         # @option options [String] :header human friendly string of the column name, by default format_header(column_name)
-        def dynamic_column(column_name, options={})
+        def dynamic_column(column_name, options = {})
           # check_options DynamicColumnHeader, options
           self._dynamic_columns = dynamic_columns.merge(column_name.to_sym => options)
         end

@@ -1,4 +1,6 @@
-require 'csvbuilder/core/internal/concerns/column_shared'
+# frozen_string_literal: true
+
+require "csvbuilder/core/internal/concerns/column_shared"
 
 module Csvbuilder
   module DynamicColumnShared

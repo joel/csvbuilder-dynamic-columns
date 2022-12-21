@@ -1,4 +1,6 @@
-require 'csvbuilder/dynamic/columns/concerns/model/dynamic_columns'
+# frozen_string_literal: true
+
+require "csvbuilder/dynamic/columns/concerns/model/dynamic_columns"
 
 # Shared between Import and Export, see test fixture for basic setup
 module Csvbuilder
@@ -16,7 +18,7 @@ module Csvbuilder
 
     ATTRIBUTE_METHODS = {
       original_attributes: :value, # a map of `column_name => original_attribute(column_name)`
-      formatted_attributes: :formatted_cells, # a map of `column_name => format_cell(column_name, ...)`
+      formatted_attributes: :formatted_cells # a map of `column_name => format_cell(column_name, ...)`
     }.freeze
     ATTRIBUTE_METHODS.each do |method_name, attribute_method|
       define_method(method_name) do
@@ -26,8 +28,9 @@ module Csvbuilder
 
     class_methods do
       protected
+
       # See {Model::DynamicColumns#dynamic_column}
-      def dynamic_column(column_name, options={})
+      def dynamic_column(column_name, options = {})
         super
         define_dynamic_attribute_method(column_name)
       end

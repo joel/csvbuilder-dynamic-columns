@@ -1,5 +1,7 @@
-require 'csvbuilder/core/internal/model/header'
-require 'csvbuilder/dynamic/columns/internal/concerns/dynamic_column_shared'
+# frozen_string_literal: true
+
+require "csvbuilder/core/internal/model/header"
+require "csvbuilder/dynamic/columns/internal/concerns/dynamic_column_shared"
 
 module Csvbuilder
   module Model

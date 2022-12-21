@@ -1,4 +1,6 @@
-require 'spec_helper'
+# frozen_string_literal: true
+
+require "spec_helper"
 
 dynamic_column_source_headers = %w[Organized Clean Punctual Strong Crazy Flexible]
 dynamic_column_source_cells = %w[Yes Yes No Yes Yes No]
@@ -20,7 +22,7 @@ RSpec.describe Csvbuilder::Import::DynamicColumns do
     let(:row_model_class) { DynamicColumnImportModel }
     let(:headers)    { %w[first_name last_name] + dynamic_column_source_headers }
     let(:source_row) { %w[Mario Italian] + dynamic_column_source_cells }
-    let(:original_attributes) {  }
+    let(:original_attributes) {}
   end
 
   describe "instance" do
@@ -35,27 +37,43 @@ RSpec.describe Csvbuilder::Import::DynamicColumns do
 
     describe "#formatted_dynamic_column_headers" do
       subject { instance.formatted_dynamic_column_headers }
-      let(:row_model_class) { Class.new(super()) { def self.format_dynamic_column_header(*args); args.join("__") end } }
+
+      let(:row_model_class) do
+        Class.new(super()) do
+          def self.format_dynamic_column_header(*args)
+            args.join("__")
+          end
+        end
+      end
 
       it "returns the formatted_headers" do
-        expect(subject).to eql ["Organized__skills__#<OpenStruct>", "Clean__skills__#<OpenStruct>", "Punctual__skills__#<OpenStruct>", "Strong__skills__#<OpenStruct>", "Crazy__skills__#<OpenStruct>", "Flexible__skills__#<OpenStruct>"]
+        expect(subject).to eql ["Organized__skills__#<OpenStruct>", "Clean__skills__#<OpenStruct>",
+                                "Punctual__skills__#<OpenStruct>", "Strong__skills__#<OpenStruct>", "Crazy__skills__#<OpenStruct>", "Flexible__skills__#<OpenStruct>"]
       end
     end
 
     describe "#dynamic_column_source_headers" do
       subject { instance.dynamic_column_source_headers }
-      it("calls the class method") { expect(row_model_class).to receive(:dynamic_column_source_headers).with(headers); subject }
+
+      it("calls the class method") {
+        expect(row_model_class).to receive(:dynamic_column_source_headers).with(headers)
+        subject
+      }
     end
 
     describe "#dynamic_column_source_cells" do
       subject { instance.dynamic_column_source_cells }
-      it("calls the class method") { expect(row_model_class).to receive(:dynamic_column_source_cells).with(source_row); subject }
+
+      it("calls the class method") {
+        expect(row_model_class).to receive(:dynamic_column_source_cells).with(source_row)
+        subject
+      }
     end
   end
 
   describe "class" do
     describe "::dynamic_column_source_headers" do
-      subject { row_model_class.dynamic_column_source_headers headers  }
+      subject { row_model_class.dynamic_column_source_headers headers }
 
       with_this_then_context "standard columns defined" do
         it "returns the dynamic part of the headers" do
@@ -64,6 +82,7 @@ RSpec.describe Csvbuilder::Import::DynamicColumns do
 
         context "for no dynamic classes" do
           let(:row_model_class) { BasicImportModel }
+
           it "returns empty array" do
             expect(subject).to eql []
           end
@@ -81,6 +100,7 @@ RSpec.describe Csvbuilder::Import::DynamicColumns do
 
         context "for no dynamic classes" do
           let(:row_model_class) { BasicImportModel }
+
           it "returns empty array" do
             expect(subject).to eql []
           end

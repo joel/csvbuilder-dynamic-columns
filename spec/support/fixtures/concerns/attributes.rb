@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class BasicAttribute < Csvbuilder::AttributeBase
   def value
     source_value.gsub("_source", "")
@@ -22,7 +24,9 @@ module BasicAttributes
   end
 
   def attribute_objects
-    @attribute_objects ||= array_to_block_hash(self.class.column_names) { |column_name| BasicAttribute.new(column_name, self) }
+    @attribute_objects ||= array_to_block_hash(self.class.column_names) do |column_name|
+      BasicAttribute.new(column_name, self)
+    end
   end
 
   def context
@@ -44,6 +48,7 @@ class BasicDynamicColumnAttribute < Csvbuilder::DynamicColumnAttributeBase
   def source_cells
     row_model.header_models
   end
+
   def self.define_process_cell(*args); end
 end
 

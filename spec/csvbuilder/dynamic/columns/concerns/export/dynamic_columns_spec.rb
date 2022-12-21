@@ -1,8 +1,10 @@
-require 'spec_helper'
+# frozen_string_literal: true
+
+require "spec_helper"
 
 RSpec.describe Csvbuilder::Export::DynamicColumns do
   let(:skills) { Skill.all }
-  let(:instance) { row_model_class.new(User.new('Mario', 'Doe'), skills: skills) }
+  let(:instance) { row_model_class.new(User.new("Mario", "Doe"), skills: skills) }
   let(:row_model_class) do
     Class.new do
       include Csvbuilder::Model
@@ -11,27 +13,27 @@ RSpec.describe Csvbuilder::Export::DynamicColumns do
     end
   end
 
-  describe 'instance' do
+  describe "instance" do
     shared_context "standard columns defined" do
       let(:row_model_class) { DynamicColumnExportModel }
     end
 
-    describe '#to_row' do
+    describe "#to_row" do
       subject { instance.to_row }
 
-      it 'returns a row representation of the row_model' do
+      it "returns a row representation of the row_model" do
         expect(subject).to eql skills
       end
 
       with_context "standard columns defined" do
-        it 'returns a row representation of the row_model' do
-          expect(subject).to eql ['Mario', 'Doe'] + skills
+        it "returns a row representation of the row_model" do
+          expect(subject).to eql %w[Mario Doe] + skills
         end
       end
     end
   end
 
-  describe 'class' do
+  describe "class" do
     describe "::dynamic_column" do
       it_behaves_like "dynamic_column_method", Csvbuilder::Export, Skill.all
     end

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class DynamicColumnModel
   include Csvbuilder::Model
 
@@ -23,7 +25,7 @@ end
 class DynamicColumnExportWithFormattingModel < DynamicColumnModel
   include Csvbuilder::Export
   class << self
-    def format_cell(cell, column_name, context)
+    def format_cell(cell, _column_name, _context)
       cell.upcase
     end
   end
