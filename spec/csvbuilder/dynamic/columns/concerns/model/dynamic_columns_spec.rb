@@ -23,7 +23,7 @@ RSpec.describe Csvbuilder::Model::DynamicColumns do
 
     #   let(:options) { { header_models_context_key: :context_key } }
 
-    #   it "works" do
+    #   it do
     #     expect(row_model_class).to receive(:check_options).with(Csvbuilder::Model::DynamicColumnHeader, options).once.and_call_original
     #     expect { subject }.to_not raise_error
     #   end

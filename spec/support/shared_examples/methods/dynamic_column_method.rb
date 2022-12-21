@@ -22,7 +22,7 @@ shared_examples "dynamic_column_method" do |mod, expectation|
         klass.send(:include, mod)
       end
 
-      it "works" do
+      it do
         expect(instance.skills).to eql(expectation)
       end
     end
