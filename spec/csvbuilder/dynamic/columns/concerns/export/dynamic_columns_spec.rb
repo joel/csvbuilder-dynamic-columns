@@ -43,7 +43,7 @@ RSpec.describe Csvbuilder::Export::DynamicColumns do
 
       it "makes an attribute that calls :original_attribute" do
         subject
-        expect(instance).to receive(:original_attribute).with(:skills).and_return("tested")
+        allow(instance).to receive(:original_attribute).with(:skills).and_return("tested")
         expect(instance.skills).to eql "tested"
       end
     end
