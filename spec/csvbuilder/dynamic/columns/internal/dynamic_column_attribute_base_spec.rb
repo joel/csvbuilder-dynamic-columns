@@ -2,69 +2,71 @@
 
 require "spec_helper"
 
-RSpec.describe Csvbuilder::DynamicColumnAttributeBase do
-  describe "instance" do
-    let(:instance) { described_class.new(:skills, row_model) }
-    let(:row_model_class) do
-      Class.new do
-        include Csvbuilder::Model
-        dynamic_column :skills
+module Csvbuilder
+  RSpec.describe DynamicColumnAttributeBase do
+    describe "instance" do
+      let(:instance) { described_class.new(:skills, row_model) }
+      let(:row_model_class) do
+        Class.new do
+          include Csvbuilder::Model
+          dynamic_column :skills
+        end
       end
-    end
-    let(:row_model) { row_model_class.new }
+      let(:row_model) { row_model_class.new }
 
-    describe "#value" do
-      subject { instance.value }
+      describe "#value" do
+        subject(:value) { instance.value }
 
-      let(:unformatted_value) { %w[Yes Yes No Yes Yes No] }
+        let(:unformatted_value) { %w[Yes Yes No Yes Yes No] }
 
-      before do
-        row_model_class.class_eval do
-          def self.format_dynamic_column_cells(*args)
-            args
+        before do
+          row_model_class.class_eval do
+            def self.format_dynamic_column_cells(*args)
+              args
+            end
           end
+        end
+
+        it "formats the column cells and memoizes" do
+          expect(instance).to receive(:unformatted_value).and_return(unformatted_value)
+          expect(value).to eql [unformatted_value, :skills, OpenStruct.new]
+          expect(value.object_id).to eql instance.value.object_id
         end
       end
 
-      it "formats the column cells and memoizes" do
-        expect(instance).to receive(:unformatted_value).and_return(unformatted_value)
-        expect(subject).to eql [unformatted_value, :skills, OpenStruct.new]
-        expect(subject.object_id).to eql instance.value.object_id
-      end
-    end
+      describe "#process_cell_method_name" do
+        subject(:process_cell_method_name) { instance.send(:process_cell_method_name) }
 
-    describe "#process_cell_method_name" do
-      subject { instance.send(:process_cell_method_name) }
-
-      it "calls the class method" do
-        expect(described_class).to receive(:process_cell_method_name).with(:skills).and_call_original
-        expect(subject).to be :skill
-      end
-    end
-
-    describe "#call_process_cell" do
-      subject { instance.send(:call_process_cell, "a", "b") }
-
-      before do
-        row_model_class.class_eval do
-          def skill(formatted_cell, source_headers)
-            "#{formatted_cell}**#{source_headers}"
-          end
+        it "calls the class method" do
+          expect(described_class).to receive(:process_cell_method_name).with(:skills).and_call_original
+          expect(process_cell_method_name).to be :skill
         end
       end
 
-      it "calls the process_cell properly" do
-        expect(subject).to eql "a**b"
+      describe "#call_process_cell" do
+        subject(:call_process_cell) { instance.send(:call_process_cell, "a", "b") }
+
+        before do
+          row_model_class.class_eval do
+            def skill(formatted_cell, source_headers)
+              "#{formatted_cell}**#{source_headers}"
+            end
+          end
+        end
+
+        it "calls the process_cell properly" do
+          expect(call_process_cell).to eql "a**b"
+        end
       end
     end
-  end
 
-  describe "class" do
-    describe "::process_cell_method_name" do
-      subject { described_class.process_cell_method_name(:somethings) }
+    describe "class" do
+      describe "::process_cell_method_name" do
+        subject(:process_cell_method_name) { described_class.process_cell_method_name(:somethings) }
 
-      it "returns a singularized name" do
-        expect(subject).to be :something
+        it "returns a singularized name" do
+          expect(process_cell_method_name).to be :something
+        end
       end
     end
   end
