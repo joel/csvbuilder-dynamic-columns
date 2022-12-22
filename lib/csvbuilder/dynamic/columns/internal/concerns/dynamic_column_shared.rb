@@ -28,11 +28,5 @@ module Csvbuilder
     def header_models_context_key
       options[:header_models_context_key] || column_name
     end
-
-    class_methods do
-      def valid_options
-        super + %i[header_models_context_key]
-      end
-    end
   end
 end
