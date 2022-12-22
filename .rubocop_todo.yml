@@ -19,11 +19,6 @@ Layout/LineLength:
 Metrics/BlockLength:
   Max: 29
 
-# Offense count: 1
-RSpec/AnyInstance:
-  Exclude:
-    - 'spec/support/shared_examples/methods/attribute_object_value.rb'
-
 # Offense count: 4
 # Configuration parameters: Prefixes, AllowedPatterns.
 # Prefixes: when, with, without

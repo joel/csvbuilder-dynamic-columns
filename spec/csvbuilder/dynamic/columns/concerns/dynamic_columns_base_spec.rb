@@ -4,6 +4,7 @@ require "spec_helper"
 
 module Csvbuilder
   header_models = Skill.all
+
   RSpec.describe DynamicColumnsBase do
     let(:instance) { row_model_class.new("Mario", "Italian") }
     let(:row_model_class) do
@@ -72,9 +73,22 @@ module Csvbuilder
       end
 
       describe "#original_attribute" do
-        subject { instance.original_attribute(:skills) }
+        let(:column_name)    { :skills }
+        let(:expected_value) { header_models }
 
-        it_behaves_like "attribute_object_value", :original_attribute, :value, skills: header_models
+        subject(:original_attribute) { instance.original_attribute(column_name) }
+
+        it do
+          expect(original_attribute).to eql expected_value
+        end
+
+        context "with invalid column_name" do
+          let(:column_name) { :not_a_column }
+
+          it do
+            expect(original_attribute).to be_nil
+          end
+        end
       end
 
       describe "#formatted_attributes" do
