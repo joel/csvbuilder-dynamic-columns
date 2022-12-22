@@ -1,13 +1,11 @@
 # frozen_string_literal: true
 
 require "csvbuilder/dynamic/columns/internal/model/dynamic_column_header"
-# require 'csvbuilder/core/concerns/check_options'
 
 module Csvbuilder
   module Model
     module DynamicColumns
       extend ActiveSupport::Concern
-      # include CheckOptions
 
       included do
         mattr_accessor :_dynamic_columns, instance_writer: false, instance_reader: false
@@ -64,7 +62,6 @@ module Csvbuilder
         # @param column_name [Symbol] column_name
         # @option options [String] :header human friendly string of the column name, by default format_header(column_name)
         def dynamic_column(column_name, options = {})
-          # check_options DynamicColumnHeader, options
           self._dynamic_columns = dynamic_columns.merge(column_name.to_sym => options)
         end
       end
