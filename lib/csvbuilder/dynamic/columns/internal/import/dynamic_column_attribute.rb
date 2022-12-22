@@ -9,7 +9,8 @@ module Csvbuilder
 
       def initialize(column_name, source_headers, source_cells, row_model)
         @source_headers = source_headers
-        @source_cells = source_cells
+        @source_cells   = source_cells
+
         super(column_name, row_model)
       end
 

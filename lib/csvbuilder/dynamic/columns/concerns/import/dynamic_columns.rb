@@ -15,8 +15,12 @@ module Csvbuilder
 
       def dynamic_column_attribute_objects
         @dynamic_column_attribute_objects ||= array_to_block_hash(self.class.dynamic_column_names) do |column_name|
-          self.class.dynamic_attribute_class.new(column_name, dynamic_column_source_headers,
-                                                 dynamic_column_source_cells, self)
+          self.class.dynamic_attribute_class.new(
+            column_name,
+            dynamic_column_source_headers,
+            dynamic_column_source_cells,
+            self
+          )
         end
       end
 
