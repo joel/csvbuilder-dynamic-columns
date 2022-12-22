@@ -30,12 +30,12 @@ module Csvbuilder
         describe "#formatted_cells" do
           open_struct = OpenStruct.new(skills: Skill.all)
           it_behaves_like "formatted_cells_method", Csvbuilder::Export, [
-            "Organized__skills__#{open_struct}",
-            "Clean__skills__#{open_struct}",
-            "Punctual__skills__#{open_struct}",
-            "Strong__skills__#{open_struct}",
-            "Crazy__skills__#{open_struct}",
-            "Flexible__skills__#{open_struct}"
+            "Ruby__skills__#{open_struct}",
+            "Python__skills__#{open_struct}",
+            "Java__skills__#{open_struct}",
+            "Rust__skills__#{open_struct}",
+            "Javascript__skills__#{open_struct}",
+            "GoLand__skills__#{open_struct}"
           ]
         end
 
@@ -57,7 +57,7 @@ module Csvbuilder
             end
 
             it "return an array of the result of the process method" do
-              expect(source_cells).to eql %w[__Organized __Clean __Punctual __Strong __Crazy __Flexible]
+              expect(source_cells).to eql %w[__Ruby __Python __Java __Rust __Javascript __GoLand]
             end
           end
         end

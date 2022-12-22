@@ -3,7 +3,7 @@
 class Skill
   class << self
     def all
-      %w[Organized Clean Punctual Strong Crazy Flexible]
+      %w[Ruby Python Java Rust Javascript GoLand]
     end
   end
 end

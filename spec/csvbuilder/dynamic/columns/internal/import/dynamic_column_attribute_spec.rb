@@ -8,7 +8,7 @@ module Csvbuilder
       describe "instance" do
         let(:instance) { described_class.new(:skills, source_headers, source_cells, row_model) }
 
-        let(:source_headers) { %w[Organized Clean Punctual Strong Crazy Flexible] }
+        let(:source_headers) { %w[Ruby Python Java Rust Javascript GoLand] }
         let(:source_cells) { %w[Yes Yes No Yes Yes No] }
         let(:row_model_class) do
           Class.new do
@@ -43,12 +43,12 @@ module Csvbuilder
             it "return an array of the result of the process method" do
               expect(unformatted_value).to eql(
                 %w[
-                  Yes__Organized
-                  Yes__Clean
-                  No__Punctual
-                  Yes__Strong
-                  Yes__Crazy
-                  No__Flexible
+                  Yes__Ruby
+                  Yes__Python
+                  No__Java
+                  Yes__Rust
+                  Yes__Javascript
+                  No__GoLand
                 ]
               )
             end
@@ -79,12 +79,12 @@ module Csvbuilder
 
           it "returns an array of the formatted_cells" do
             expect(formatted_headers).to eql [
-              "Organized__skills__#<OpenStruct>",
-              "Clean__skills__#<OpenStruct>",
-              "Punctual__skills__#<OpenStruct>",
-              "Strong__skills__#<OpenStruct>",
-              "Crazy__skills__#<OpenStruct>",
-              "Flexible__skills__#<OpenStruct>"
+              "Ruby__skills__#<OpenStruct>",
+              "Python__skills__#<OpenStruct>",
+              "Java__skills__#<OpenStruct>",
+              "Rust__skills__#<OpenStruct>",
+              "Javascript__skills__#<OpenStruct>",
+              "GoLand__skills__#<OpenStruct>"
             ]
           end
 
@@ -99,7 +99,7 @@ module Csvbuilder
             end
 
             it "bumps the index up for the dynamic_column_index" do
-              expect(formatted_headers.first).to eql "Organized__skills__#<OpenStruct>"
+              expect(formatted_headers.first).to eql "Ruby__skills__#<OpenStruct>"
             end
           end
         end

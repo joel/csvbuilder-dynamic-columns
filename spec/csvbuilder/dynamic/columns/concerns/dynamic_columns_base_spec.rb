@@ -103,8 +103,8 @@ module Csvbuilder
         end
 
         it "returns all attributes of dynamic columns" do
-          expect(formatted_attributes).to eql(skills: ["Organized__skills__#<OpenStruct>", "Clean__skills__#<OpenStruct>",
-                                                       "Punctual__skills__#<OpenStruct>", "Strong__skills__#<OpenStruct>", "Crazy__skills__#<OpenStruct>", "Flexible__skills__#<OpenStruct>"])
+          expect(formatted_attributes).to eql(skills: ["Ruby__skills__#<OpenStruct>", "Python__skills__#<OpenStruct>",
+                                                       "Java__skills__#<OpenStruct>", "Rust__skills__#<OpenStruct>", "Javascript__skills__#<OpenStruct>", "GoLand__skills__#<OpenStruct>"])
         end
 
         with_context "standard columns defined" do
@@ -112,8 +112,8 @@ module Csvbuilder
             expect(formatted_attributes).to eql(
               first_name: "Mario_source__first_name__#<OpenStruct>",
               last_name: "Italian_source__last_name__#<OpenStruct>",
-              skills: ["Organized__skills__#<OpenStruct>", "Clean__skills__#<OpenStruct>",
-                       "Punctual__skills__#<OpenStruct>", "Strong__skills__#<OpenStruct>", "Crazy__skills__#<OpenStruct>", "Flexible__skills__#<OpenStruct>"]
+              skills: ["Ruby__skills__#<OpenStruct>", "Python__skills__#<OpenStruct>",
+                       "Java__skills__#<OpenStruct>", "Rust__skills__#<OpenStruct>", "Javascript__skills__#<OpenStruct>", "GoLand__skills__#<OpenStruct>"]
             )
           end
         end

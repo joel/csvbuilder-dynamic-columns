@@ -4,7 +4,7 @@ require "spec_helper"
 
 module Csvbuilder
   module Import
-    dynamic_column_source_headers = %w[Organized Clean Punctual Strong Crazy Flexible]
+    dynamic_column_source_headers = %w[Ruby Python Java Rust Javascript GoLand]
     dynamic_column_source_cells = %w[Yes Yes No Yes Yes No]
     RSpec.describe DynamicColumns do
       let(:row_model_class) do
@@ -47,8 +47,8 @@ module Csvbuilder
           end
 
           it "returns the formatted_headers" do
-            expect(formatted_dynamic_column_headers).to eql ["Organized__skills__#<OpenStruct>", "Clean__skills__#<OpenStruct>",
-                                                             "Punctual__skills__#<OpenStruct>", "Strong__skills__#<OpenStruct>", "Crazy__skills__#<OpenStruct>", "Flexible__skills__#<OpenStruct>"]
+            expect(formatted_dynamic_column_headers).to eql ["Ruby__skills__#<OpenStruct>", "Python__skills__#<OpenStruct>",
+                                                             "Java__skills__#<OpenStruct>", "Rust__skills__#<OpenStruct>", "Javascript__skills__#<OpenStruct>", "GoLand__skills__#<OpenStruct>"]
           end
         end
 
