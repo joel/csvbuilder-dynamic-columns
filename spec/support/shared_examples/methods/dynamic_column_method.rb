@@ -19,7 +19,7 @@ shared_examples "dynamic_column_method" do |mod, expectation|
       let(:row_model_class) do
         klass = Class.new { include Csvbuilder::Model }
         klass.send(:dynamic_column, :skills)
-        klass.send(:include, mod)
+        klass.include(mod)
       end
 
       it do
