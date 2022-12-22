@@ -47,8 +47,16 @@ module Csvbuilder
           end
 
           it "returns the formatted_headers" do
-            expect(formatted_dynamic_column_headers).to eql ["Ruby__skills__#<OpenStruct>", "Python__skills__#<OpenStruct>",
-                                                             "Java__skills__#<OpenStruct>", "Rust__skills__#<OpenStruct>", "Javascript__skills__#<OpenStruct>", "GoLand__skills__#<OpenStruct>"]
+            expect(formatted_dynamic_column_headers).to eql(
+              [
+                "Ruby__skills__#<OpenStruct>",
+                "Python__skills__#<OpenStruct>",
+                "Java__skills__#<OpenStruct>",
+                "Rust__skills__#<OpenStruct>",
+                "Javascript__skills__#<OpenStruct>",
+                "GoLand__skills__#<OpenStruct>"
+              ]
+            )
           end
         end
 
