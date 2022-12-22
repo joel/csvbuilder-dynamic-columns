@@ -19,6 +19,10 @@ Layout/LineLength:
 Metrics/BlockLength:
   Max: 29
 
+Metrics/ModuleLength:
+  Exclude:
+    - 'spec/csvbuilder/dynamic/columns/concerns/dynamic_columns_base_spec.rb'
+
 # Offense count: 4
 # Configuration parameters: Prefixes, AllowedPatterns.
 # Prefixes: when, with, without

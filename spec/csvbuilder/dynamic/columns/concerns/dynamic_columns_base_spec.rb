@@ -103,8 +103,16 @@ module Csvbuilder
         end
 
         it "returns all attributes of dynamic columns" do
-          expect(formatted_attributes).to eql(skills: ["Ruby__skills__#<OpenStruct>", "Python__skills__#<OpenStruct>",
-                                                       "Java__skills__#<OpenStruct>", "Rust__skills__#<OpenStruct>", "Javascript__skills__#<OpenStruct>", "GoLand__skills__#<OpenStruct>"])
+          expect(formatted_attributes).to eql(
+            skills: [
+              "Ruby__skills__#<OpenStruct>",
+              "Python__skills__#<OpenStruct>",
+              "Java__skills__#<OpenStruct>",
+              "Rust__skills__#<OpenStruct>",
+              "Javascript__skills__#<OpenStruct>",
+              "GoLand__skills__#<OpenStruct>"
+            ]
+          )
         end
 
         with_context "standard columns defined" do
