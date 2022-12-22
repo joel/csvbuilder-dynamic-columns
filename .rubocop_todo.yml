@@ -37,6 +37,8 @@ RSpec/ContextWording:
 # Configuration parameters: CountAsOne.
 RSpec/ExampleLength:
   Max: 10
+  Exclude:
+    - 'spec/csvbuilder/dynamic/columns/concerns/dynamic_columns_base_spec.rb'
 
 # Offense count: 1
 RSpec/ExpectInHook:

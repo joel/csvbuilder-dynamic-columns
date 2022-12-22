@@ -120,8 +120,14 @@ module Csvbuilder
             expect(formatted_attributes).to eql(
               first_name: "Mario_source__first_name__#<OpenStruct>",
               last_name: "Italian_source__last_name__#<OpenStruct>",
-              skills: ["Ruby__skills__#<OpenStruct>", "Python__skills__#<OpenStruct>",
-                       "Java__skills__#<OpenStruct>", "Rust__skills__#<OpenStruct>", "Javascript__skills__#<OpenStruct>", "GoLand__skills__#<OpenStruct>"]
+              skills: [
+                "Ruby__skills__#<OpenStruct>",
+                "Python__skills__#<OpenStruct>",
+                "Java__skills__#<OpenStruct>",
+                "Rust__skills__#<OpenStruct>",
+                "Javascript__skills__#<OpenStruct>",
+                "GoLand__skills__#<OpenStruct>"
+              ]
             )
           end
         end
