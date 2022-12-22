@@ -121,7 +121,7 @@ module Csvbuilder
     end
 
     describe "class" do
-      it_behaves_like "defines_attributes_methods_safely", { string1: "Mario", string2: "Italian" }, BasicDynamicColumns
+      it_behaves_like "defines_attributes_methods_safely", { alpha: "Mario", string2: "Italian" }, BasicDynamicColumns
     end
   end
 end

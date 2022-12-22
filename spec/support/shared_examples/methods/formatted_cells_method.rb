@@ -19,7 +19,7 @@ shared_examples "formatted_cells_method" do |mod, results|
     let(:row_model_class) do
       klass = Class.new do
         include Csvbuilder::Model
-        column :string1
+        column :alpha
         dynamic_column :skills
       end
       klass.send(:include, mod)

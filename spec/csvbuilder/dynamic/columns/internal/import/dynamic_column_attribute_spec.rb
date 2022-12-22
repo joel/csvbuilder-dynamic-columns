@@ -93,7 +93,7 @@ module Csvbuilder
               Class.new do
                 include Csvbuilder::Model
                 include Csvbuilder::Import
-                column :string1
+                column :alpha
                 dynamic_column :skills
               end
             end
