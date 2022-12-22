@@ -6,9 +6,11 @@ shared_examples "attribute_objects_method" do |column_names, cell_classes_to_cou
 
   it "returns a hash of cells mapped to their column_name" do
     expect(subject.keys).to eql column_names
-    expect(subject.values.map(&:class)).to eql cell_classes_to_count
-      .map { |cell_class, count| [cell_class] * count }
-      .flatten
+    expect(subject.values.map(&:class)).to eql(
+      cell_classes_to_count.map do |cell_class, count|
+        [cell_class] * count
+      end.flatten
+    )
   end
 
   it "is memoized" do
