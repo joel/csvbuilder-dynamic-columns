@@ -6,7 +6,7 @@ shared_examples "dynamic_column_method" do |mod, expectation|
 
     let(:row_model_class) do
       klass = Class.new { include Csvbuilder::Model }
-      klass.send(:include, mod)
+      klass.include(mod)
     end
 
     it "calls the right method and defines the method" do
